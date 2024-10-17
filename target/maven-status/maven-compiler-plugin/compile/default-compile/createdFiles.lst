@@ -1,0 +1,17 @@
+com\ar\askgaming\betterdragon\DragonStatue.class
+com\ar\askgaming\betterdragon\Events\PlayerChangedWorldListener.class
+com\ar\askgaming\betterdragon\Main.class
+com\ar\askgaming\betterdragon\RespawnTask.class
+com\ar\askgaming\betterdragon\Events\CreatureSpawnListener.class
+com\ar\askgaming\betterdragon\Dragon.class
+com\ar\askgaming\betterdragon\Events\EntityRegainHealthListener.class
+com\ar\askgaming\betterdragon\DragonAbilities.class
+com\ar\askgaming\betterdragon\Events\EntityDamageListener.class
+com\ar\askgaming\betterdragon\Events\PlayerInteractListener.class
+com\ar\askgaming\betterdragon\DragonAbilities$Abilities.class
+com\ar\askgaming\betterdragon\Events\PlayerJoinListener.class
+com\ar\askgaming\betterdragon\PlacerHolderHook.class
+com\ar\askgaming\betterdragon\Commands.class
+com\ar\askgaming\betterdragon\Events\EntityTargetListener.class
+com\ar\askgaming\betterdragon\Events\EntityDeathListener.class
+com\ar\askgaming\betterdragon\DataHandler.class
