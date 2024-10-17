@@ -1,7 +1,7 @@
 main: com.ar.askgaming.betterdragon.Main
 name: BetterDragon
 api-version: 1.21
-version: 2.9
+version: 3.6
 author: AMONLY
 softdepend: [PlaceholderAPI]
 commands:
