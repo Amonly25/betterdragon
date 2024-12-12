@@ -8,8 +8,8 @@ import org.bukkit.entity.EntityType;
 
 public class RespawnTask implements Runnable {
 
-    private Main plugin;
-    public RespawnTask(Main main) {
+    private BetterDragon plugin;
+    public RespawnTask(BetterDragon main) {
         this.plugin = main;
     }
 

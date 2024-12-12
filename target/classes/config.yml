@@ -1,0 +1,146 @@
+# Configare the automatic respawn by set_time command (in minits)
+# Possible colors https://hub.spigotmc.org/javadocs/spigot/org/bukkit/boss/BarColor.html
+## Percentages are calculated between 0.0(0%) and 1.0(100%)
+## You can add unlimited rewards
+# To create more custom ArmorStand o modify this one, use https://haselkern.com/Minecraft-ArmorStand/
+
+# Abilites: When you attack the dragon, a random skill will be used, configute it individually
+# Possible sounds https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Sound.html
+# Possible effects https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/potion/PotionEffectType.html
+
+options:
+  automatic_respawn: true
+  bossbar_color: PURPLE
+  name_visible: false
+  dragon_damage_enderman: false
+  enderman_target_dragon: false
+  disable_endcrystal_onbedrock:
+    worlds:
+    - world_the_end
+
+abilities:
+  lightning:
+    chance: 0.3
+    super_lightning: true
+    msg_to_player: "&5Dragon: &7You cant against my power"
+    #commands:
+    #- maybe a espetacular command?
+  dodge:
+    chance: 1.0
+    msg_to_player: "&5Dragon: &7You failed, you are worth nothing"
+    block_damage: true
+    sounds:
+    - ITEM_SHIELD_BLOCK
+  impulse:
+    chance: 0.3
+    msg_to_player: "&5Dragon: &7Agggggrhh"
+    knockback_power: 3
+    damage_player: 10
+    sounds:
+    - ENTITY_ENDER_DRAGON_GROWL
+    - ENTITY_PLAYER_ATTACK_SWEEP
+  explosion:
+    chance: 0.3
+    msg_to_player: "&5Dragon: &7Dieeeeee!!"  
+    make_explosion: true
+    sounds:
+    - ENTITY_ENDER_DRAGON_GROWL
+  ender_attack:
+    chance: 0.15
+    msg_to_player: "&5Dragon: &7Attack endermans!!"  
+    ender_attack: true
+    sounds:
+    - ENTITY_ENDER_DRAGON_GROWL
+    effects:
+    - BLINDNESS:60:0
+  custom1: # Why not create your own ability?
+    # You can add any config type here only chance is required 
+    chance: 0.0
+    msg_to_player: "&5Dragon: &7Custom message"  
+    commands:
+    - eco add %player% 1
+    - give %player% arrow 1
+    #-any awesome command
+    sounds:
+    - ENTITY_ENDER_DRAGON_GROWL
+    block_damage: true
+    knockback_power: 3
+    damage_player: 10
+    create_explosion: true
+    super_lightning: true
+    ender_attack: true
+    effects:
+     - NAUSEA:60:0
+
+drops:
+  egg: 0.15
+  head: 0.15
+
+rewards:
+  1:
+    chance: 1.0
+    broadcast_text: ""
+    drops: 
+    - ENDER_EYE
+    - BONE
+    commands: 
+    - eco give %player% 100
+    - give %player% diamond 4
+  2:
+    chance: 0.50
+    broadcast_text: ""
+    drops: 
+    - BONE
+    commands: 
+    - eco give %player% 100
+    - give %player% emerald 4
+  3:
+    chance: 0.0
+    broadcast_text: "Example: 0%"
+    drops: 
+    - DIAMOND 
+
+messages:
+  respawn: "&7The &5Ender Dragon &7has respawned."
+  onkill: "&7The player &c%player% &7has kill the &5Ender Dragon."
+  dropegg: "&7You have killed the dragon and its egg has fallen in the place of his death."
+  drophead: "&7You have killed the dragon and its head has been dropped."
+  endcrystal: "&cYou cant use ender crystal on bedrock."
+  next_dragon: "&7%hours% hours and %min% minutes"
+
+leaderboard:
+  prefix: "&c"
+  separator: " &7> &e"
+  suffix: " &7kills"
+
+statue:
+  baseplate: false
+  gravity: false
+  small: false
+  name_visible: true
+  name: "DragonKiller %player%" 
+  chestplate: DIAMOND_CHESTPLATE
+  boots: DIAMOND_BOOTS
+  leggings: DIAMOND_LEGGINGS
+  mainhand: DIAMOND_SWORD
+  offhand: DRAGON_HEAD
+  leftarm:
+    x: 278
+    y: 338
+    z: 0
+  rightarm:
+    x: 290
+    y: 338
+    z: 100
+  rightleg:
+    x: 10
+    y: 0
+    z: 10
+  leftleg:
+    x: 338
+    y: 0 
+    z: 345
+  head:
+    x: 10
+    y: 350
+    z: 0

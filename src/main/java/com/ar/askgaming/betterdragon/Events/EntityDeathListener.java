@@ -12,14 +12,14 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.inventory.ItemStack;
 
-import com.ar.askgaming.betterdragon.Main;
+import com.ar.askgaming.betterdragon.BetterDragon;
 
 import net.md_5.bungee.api.ChatColor;
 
 public class EntityDeathListener implements Listener{
 
-    private Main plugin;
-    public EntityDeathListener(Main main){
+    private BetterDragon plugin;
+    public EntityDeathListener(BetterDragon main){
         plugin = main;
     }
 

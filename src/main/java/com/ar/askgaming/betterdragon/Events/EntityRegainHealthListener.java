@@ -5,12 +5,12 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityRegainHealthEvent;
 
-import com.ar.askgaming.betterdragon.Main;
+import com.ar.askgaming.betterdragon.BetterDragon;
 
 public class EntityRegainHealthListener implements Listener{
 
-    private Main plugin;
-    public EntityRegainHealthListener(Main plugin) {
+    private BetterDragon plugin;
+    public EntityRegainHealthListener(BetterDragon plugin) {
         this.plugin = plugin;
     }
 

@@ -1,4 +1,4 @@
-main: com.ar.askgaming.betterdragon.Main
+main: com.ar.askgaming.betterdragon.BetterDragon
 name: BetterDragon
 api-version: 1.21
 version: 3.6
@@ -8,6 +8,5 @@ commands:
   dragon:
     aliases: [betterdragon]
     description: Manage dragons in your server.
-    usage: /dragon <set_spawn|kill|set_time|set_health|set_name|respawn|top|next|tp>
     permission: betterdragon.commands
     permission-message: You do not have permission to use this command.

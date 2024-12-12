@@ -3,7 +3,10 @@
 ## Percentages are calculated between 0.0(0%) and 1.0(100%)
 ## You can add unlimited rewards
 # To create more custom ArmorStand o modify this one, use https://haselkern.com/Minecraft-ArmorStand/
+
 # Abilites: When you attack the dragon, a random skill will be used, configute it individually
+# Possible sounds https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Sound.html
+# Possible effects https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/potion/PotionEffectType.html
 
 options:
   automatic_respawn: true
@@ -16,23 +19,58 @@ options:
     - world_the_end
 
 abilities:
-  counter_attacks:
-    lightning:
-      chance: 0.3
-      msg_to_player: "&5Dragon: &7You cant against my power"
-    dodge:
-      chance: 1.0
-      msg_to_player: "&5Dragon: &7You failed, you are worth nothing"
-    impulse:
-      chance: 0.3
-      msg_to_player: "&5Dragon: &7Agggggrhh"
-    explosion:
-      chance: 0.3
-      msg_to_player: "&5Dragon: &7Dieeeeee!!"  
-    ender_attack:
-      chance: 0.15
-      msg_to_player: "&5Dragon: &7Attack endermans!!"  
-      radius: 20
+  lightning:
+    chance: 0.3
+    super_lightning: true
+    msg_to_player: "&5Dragon: &7You cant against my power"
+    #commands:
+    #- maybe a espetacular command?
+  dodge:
+    chance: 1.0
+    msg_to_player: "&5Dragon: &7You failed, you are worth nothing"
+    block_damage: true
+    sounds:
+    - ITEM_SHIELD_BLOCK
+  impulse:
+    chance: 0.3
+    msg_to_player: "&5Dragon: &7Agggggrhh"
+    knockback_power: 3
+    damage_player: 10
+    sounds:
+    - ENTITY_ENDER_DRAGON_GROWL
+    - ENTITY_PLAYER_ATTACK_SWEEP
+  explosion:
+    chance: 0.3
+    msg_to_player: "&5Dragon: &7Dieeeeee!!"  
+    make_explosion: true
+    sounds:
+    - ENTITY_ENDER_DRAGON_GROWL
+  ender_attack:
+    chance: 0.15
+    msg_to_player: "&5Dragon: &7Attack endermans!!"  
+    ender_attack: true
+    sounds:
+    - ENTITY_ENDER_DRAGON_GROWL
+    effects:
+    - BLINDNESS:60:0
+  custom1: # Why not create your own ability?
+    # You can add any config type here only chance is required 
+    chance: 0.0
+    msg_to_player: "&5Dragon: &7Custom message"  
+    commands:
+    - eco add %player% 1
+    - give %player% arrow 1
+    #-any awesome command
+    sounds:
+    - ENTITY_ENDER_DRAGON_GROWL
+    block_damage: true
+    knockback_power: 3
+    damage_player: 10
+    create_explosion: true
+    super_lightning: true
+    ender_attack: true
+    effects:
+     - NAUSEA:60:0
 
 drops:
   egg: 0.15

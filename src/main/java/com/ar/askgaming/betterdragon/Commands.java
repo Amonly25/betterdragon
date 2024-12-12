@@ -16,8 +16,8 @@ import org.bukkit.entity.Player;
 
 public class Commands implements TabExecutor{
 
-    private Main plugin;
-    public Commands(Main main) {
+    private BetterDragon plugin;
+    public Commands(BetterDragon main) {
         plugin = main;
     }
 
@@ -165,6 +165,6 @@ public class Commands implements TabExecutor{
             break;
             }
         }
-        return false;
+        return true;
     }
 }

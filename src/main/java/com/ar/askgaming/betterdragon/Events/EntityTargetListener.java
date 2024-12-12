@@ -6,12 +6,12 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityTargetLivingEntityEvent;
 
-import com.ar.askgaming.betterdragon.Main;
+import com.ar.askgaming.betterdragon.BetterDragon;
 
 public class EntityTargetListener implements Listener{
 
-    private Main plugin;
-    public EntityTargetListener(Main plugin) {
+    private BetterDragon plugin;
+    public EntityTargetListener(BetterDragon plugin) {
         this.plugin = plugin;
     }
 

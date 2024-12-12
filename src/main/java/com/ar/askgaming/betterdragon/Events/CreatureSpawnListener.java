@@ -9,13 +9,13 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 
-import com.ar.askgaming.betterdragon.Main;
+import com.ar.askgaming.betterdragon.BetterDragon;
 
 public class CreatureSpawnListener implements Listener{
 
-    private Main plugin;
+    private BetterDragon plugin;
 
-    public CreatureSpawnListener(Main main){
+    public CreatureSpawnListener(BetterDragon main){
         plugin = main;
     }
 

@@ -44,8 +44,8 @@ public class DataHandler {
     private File dragonDataFile;
     private File playersDataFile;
 
-    private Main plugin;
-    public DataHandler(Main main) {
+    private BetterDragon plugin;
+    public DataHandler(BetterDragon main) {
         plugin = main;
 
         //Creating files

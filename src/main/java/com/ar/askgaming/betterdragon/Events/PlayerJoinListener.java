@@ -7,12 +7,12 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 
-import com.ar.askgaming.betterdragon.Main;
+import com.ar.askgaming.betterdragon.BetterDragon;
 
 public class PlayerJoinListener implements Listener{
 
-    private Main plugin;
-    public PlayerJoinListener(Main main){
+    private BetterDragon plugin;
+    public PlayerJoinListener(BetterDragon main){
         plugin = main;
     }
 

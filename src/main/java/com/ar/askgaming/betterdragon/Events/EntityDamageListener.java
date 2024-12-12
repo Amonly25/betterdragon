@@ -8,12 +8,12 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 
-import com.ar.askgaming.betterdragon.Main;
+import com.ar.askgaming.betterdragon.BetterDragon;
 
 public class EntityDamageListener implements Listener{
 
-    private Main plugin;
-    public EntityDamageListener(Main main){
+    private BetterDragon plugin;
+    public EntityDamageListener(BetterDragon main){
         plugin = main;
     }
 

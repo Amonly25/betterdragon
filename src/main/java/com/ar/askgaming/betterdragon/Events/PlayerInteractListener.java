@@ -10,12 +10,12 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 
-import com.ar.askgaming.betterdragon.Main;
+import com.ar.askgaming.betterdragon.BetterDragon;
 
 public class PlayerInteractListener implements Listener{
 
-    private Main plugin;
-    public PlayerInteractListener(Main main){
+    private BetterDragon plugin;
+    public PlayerInteractListener(BetterDragon main){
         plugin = main;
     }
 

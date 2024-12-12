@@ -7,12 +7,12 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerChangedWorldEvent;
 
-import com.ar.askgaming.betterdragon.Main;
+import com.ar.askgaming.betterdragon.BetterDragon;
 
 public class PlayerChangedWorldListener implements Listener{
 
-    private Main plugin;
-    public PlayerChangedWorldListener(Main plugin) {
+    private BetterDragon plugin;
+    public PlayerChangedWorldListener(BetterDragon plugin) {
         this.plugin = plugin;
     }
 

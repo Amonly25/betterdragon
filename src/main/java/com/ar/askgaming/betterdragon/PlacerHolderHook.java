@@ -11,8 +11,8 @@ import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 
 public class PlacerHolderHook extends PlaceholderExpansion {
 
-    private Main plugin;
-    public PlacerHolderHook(Main main){
+    private BetterDragon plugin;
+    public PlacerHolderHook(BetterDragon main){
         plugin = main;
     }
     @Override

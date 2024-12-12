@@ -1,0 +1,12 @@
+main: com.ar.askgaming.betterdragon.BetterDragon
+name: BetterDragon
+api-version: 1.21
+version: 3.6
+author: AMONLY
+softdepend: [PlaceholderAPI]
+commands:
+  dragon:
+    aliases: [betterdragon]
+    description: Manage dragons in your server.
+    permission: betterdragon.commands
+    permission-message: You do not have permission to use this command.
