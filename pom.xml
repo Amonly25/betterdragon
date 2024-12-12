@@ -6,11 +6,11 @@
 
   <groupId>com.ar.askgaming.betterdragon</groupId>
   <artifactId>betterdragon</artifactId>
-  <version>3.6</version>
+  <version>3.7</version>
 
   <name>betterdragon</name>
   <!-- FIXME change it to the project's website -->
-  <url>http://www.example.com</url>
+  <url>https://www.askgaming.com.ar</url>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
