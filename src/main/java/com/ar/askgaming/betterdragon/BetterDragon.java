@@ -62,7 +62,7 @@ public class BetterDragon extends JavaPlugin{
 
         if(Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
             new PlacerHolderHook(this).register();
-      }
+        }
     }
 
     public void onDisable() {

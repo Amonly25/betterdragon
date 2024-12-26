@@ -6,6 +6,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.EntityType;
 
+//change to bukkitrunnable on a manager
 public class RespawnTask implements Runnable {
 
     private BetterDragon plugin;
