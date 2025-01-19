@@ -8,15 +8,31 @@
 # Possible sounds https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Sound.html
 # Possible effects https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/potion/PotionEffectType.html
 
-options:
-  automatic_respawn: true
+respawn:
+  enable: true
+  mode: default # default or entity
+  #default: The dragon will respawn as though a player has placed 4 end crystals on the portal.
+  #entity: Only a dragon entity will be spawned, no boss bar will be displayed, end crystals will not be restored and portals no will be created.
+  cooldown: 1440
+
+dragon:
+  name: "&5Ender Dragon"
+  health: 400 # 200 is the default
+  damage_multiplier: 1.3
   bossbar_color: PURPLE
-  name_visible: false
+  
+options:
   dragon_damage_enderman: false
   enderman_target_dragon: false
   disable_endcrystal_onbedrock:
     worlds:
     - world_the_end
+
+data:
+  death_time: 0
+  killer: "Steave"
+  respawn_location: null
+  statue: null
 
 abilities:
   lightning:
@@ -75,6 +91,15 @@ abilities:
 drops:
   egg: 0.15
   head: 0.15
+
+custom_drops:
+  '1737159193811':
+    item:
+      ==: org.bukkit.inventory.ItemStack
+      v: 4189
+      type: BOW
+    chance: 0.5
+    broadcast_text: 'Something special has been dropped'
 
 rewards:
   1:

@@ -3,7 +3,6 @@ package com.ar.askgaming.betterdragon.Dragon;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Sound;
 import org.bukkit.configuration.ConfigurationSection;
@@ -37,7 +36,7 @@ public class DragonAbilities {
         }
         for (String key : abilities.getKeys(false)) {
             this.abilities.add(key);
-            Bukkit.getLogger().info("Ability: " + key);
+            //Bukkit.getLogger().info("Ability: " + key);
         }
     }
 

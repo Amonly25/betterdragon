@@ -27,8 +27,8 @@ public class DragonStatue {
 
         plugin = main;
 
-		if (plugin.getDataHandler().getDragonDataConfig().get("statue") != null) {
-			UUID = plugin.getDataHandler().getDragonDataConfig().getString("statue");
+		if (plugin.getConfig().get("data.statue") != null) {
+			UUID = plugin.getConfig().getString("statue");
 		}
     }
 
@@ -66,8 +66,9 @@ public class DragonStatue {
 
 		String id = statue.getUniqueId().toString().replace("!!java.util.UUID ", "");
 		UUID = id;
-		plugin.getDataHandler().getDragonDataConfig().set("statue", id);
-		plugin.getDataHandler().saveDragonDataConfig();
+		
+		plugin.getConfig().set("data.statue", id);
+		plugin.saveConfig();
 
 
         statue.setLeftArmPose(new EulerAngle(
@@ -113,9 +114,9 @@ public class DragonStatue {
         ItemStack skull = new ItemStack(Material.PLAYER_HEAD);
         SkullMeta meta = (SkullMeta) skull.getItemMeta();
 
-		String player = "null";
+		String player = "Steave";
 
-		if (plugin.getDragon().getKillerName() != null){
+		if (!plugin.getDragon().getKillerName().isBlank()){
 			player = plugin.getDragon().getKillerName();
 		}
 
