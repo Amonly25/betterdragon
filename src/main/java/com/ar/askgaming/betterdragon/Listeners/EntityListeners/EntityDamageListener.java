@@ -1,8 +1,11 @@
 package com.ar.askgaming.betterdragon.Listeners.EntityListeners;
 
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Arrow;
+import org.bukkit.entity.DragonFireball;
 import org.bukkit.entity.EnderDragon;
 import org.bukkit.entity.Enderman;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -17,44 +20,41 @@ public class EntityDamageListener implements Listener{
         plugin = main;
     }
 
-    @EventHandler()
-    public void onEntityDamage(EntityDamageByEntityEvent e){
-        
-        // Handle logic when dragon makes damage
-        if (e.getDamager() instanceof EnderDragon) {
+    @EventHandler
+    public void onEntityDamage(EntityDamageByEntityEvent e) {
+        Entity damager = e.getDamager();
+        Entity entity = e.getEntity();
 
-			if (e.getEntity() instanceof Enderman) {
-				if (plugin.getConfig().getBoolean("options.dragon_damage_enderman") == false) {
-					e.setCancelled(true);
-				}
-			}
-			if (e.getEntity() instanceof Player) {
-				 double dmg = e.getDamage();
-				 int multiply = plugin.getConfig().getInt("dragon.damage_multiplier");
-				 if (multiply > 1) {
-					 e.setDamage(dmg*multiply);
-				 }
-			}
-            return;
+        if (damager instanceof EnderDragon || damager instanceof DragonFireball) {
+            handleDragonDamage(e, entity);
+        } else if (entity instanceof EnderDragon) {
+            handleDragonBeingDamaged(e, damager);
         }
+    }
 
-        // Handle logic when dragon makes damage
-        if (e.getEntity() instanceof EnderDragon) {
+    private void handleDragonDamage(EntityDamageByEntityEvent e, Entity entity) {
+        if (entity instanceof Enderman && !plugin.getConfig().getBoolean("options.dragon_damage_enderman")) {
+            e.setCancelled(true);
+        } else if (entity instanceof Player) {
+            //Bukkit.broadcastMessage("test");
+            double dmg = e.getDamage();
+            int multiply = plugin.getConfig().getInt("dragon.damage_multiplier");
+            if (multiply > 1) {
+                e.setDamage(dmg * multiply);
+            }
+        }
+    }
 
-            // Abilities
-            if (e.getDamager() instanceof Arrow) {
-                Arrow a = (Arrow) e.getDamager();
-                
-                if (a.getShooter() instanceof Player) {	
-                    Player p = (Player) a.getShooter();
-                    plugin.getDragonAbilities().createCounterAttack(e, p);
-                }
-                return;
+    private void handleDragonBeingDamaged(EntityDamageByEntityEvent e, Entity damager) {
+        if (damager instanceof Arrow) {
+            Arrow arrow = (Arrow) damager;
+            if (arrow.getShooter() instanceof Player) {
+                Player player = (Player) arrow.getShooter();
+                plugin.getDragonAbilities().createCounterAttack(e, player);
             }
-            if (e.getDamager() instanceof Player) {
-                Player p = (Player) e.getDamager();
-                plugin.getDragonAbilities().createCounterAttack(e, p);
-            }
+        } else if (damager instanceof Player) {
+            Player player = (Player) damager;
+            plugin.getDragonAbilities().createCounterAttack(e, player);
         }
     }
 }

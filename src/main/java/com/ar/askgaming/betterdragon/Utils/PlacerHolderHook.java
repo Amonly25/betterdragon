@@ -1,6 +1,8 @@
 package com.ar.askgaming.betterdragon.Utils;
 
 import org.bukkit.OfflinePlayer;
+import org.bukkit.Statistic;
+import org.bukkit.entity.EntityType;
 
 import com.ar.askgaming.betterdragon.BetterDragon;
 
@@ -52,7 +54,9 @@ public class PlacerHolderHook extends PlaceholderExpansion {
 
             case "next":
                 return plugin.getDragonManager().getNext();
-
+            case "kills":
+                int number = player.getStatistic(Statistic.KILL_ENTITY,EntityType.ENDER_DRAGON);
+                return number + "";
             default:
                 break;
         }

@@ -31,6 +31,8 @@ public class EntityDeathListener implements Listener{
                 Player p = (Player) e.getEntity().getKiller();
                 plugin.getDragon().setKiller(p.getName());
 
+                plugin.getStatue().updateStatue();
+
                 // Update the player's kills in the database
                 plugin.getDataHandler().updateDragonKills(p);
 
