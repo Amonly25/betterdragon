@@ -20,5 +20,6 @@ public class PlayerJoinListener implements Listener{
 		Player p = (Player) e.getPlayer();      
         plugin.getDataHandler().updateDragonKills(p);
 
+        plugin.getDragonBossBar().checkToBossBar(p);
     }
 }

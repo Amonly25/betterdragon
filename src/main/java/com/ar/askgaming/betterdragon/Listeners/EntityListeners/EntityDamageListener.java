@@ -1,5 +1,9 @@
 package com.ar.askgaming.betterdragon.Listeners.EntityListeners;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.DragonFireball;
@@ -46,15 +50,38 @@ public class EntityDamageListener implements Listener{
     }
 
     private void handleDragonBeingDamaged(EntityDamageByEntityEvent e, Entity damager) {
+        EnderDragon dragon = (EnderDragon) e.getEntity();
+        plugin.getDragonBossBar().updateBossBar(dragon);
+        Player player = null;
+
         if (damager instanceof Arrow) {
             Arrow arrow = (Arrow) damager;
             if (arrow.getShooter() instanceof Player) {
-                Player player = (Player) arrow.getShooter();
-                plugin.getDragonAbilities().createCounterAttack(e, player);
+                player = (Player) arrow.getShooter();
             }
         } else if (damager instanceof Player) {
-            Player player = (Player) damager;
+            player = (Player) damager;
+        }
+
+        if (player != null) {
+
+            // Add player to the list of players that have damaged the dragon
+            HashMap<Player, Double> damage = plugin.getDragonManager().getDragonDamagers().get(dragon);
+            if (damage == null) {
+                Bukkit.broadcastMessage("damage is null");
+                damage = new HashMap<>();
+                damage.put(player, e.getDamage());
+                plugin.getDragonManager().getDragonDamagers().put(dragon, damage);
+            } else {
+                double dmg = e.getDamage();
+                if (damage.containsKey(player)) {
+                    dmg += damage.get(player);
+                }
+                damage.put(player, dmg);
+            }
+
             plugin.getDragonAbilities().createCounterAttack(e, player);
+
         }
     }
 }

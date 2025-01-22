@@ -12,7 +12,7 @@ respawn:
   enable: true
   mode: default # default or entity
   #default: The dragon will respawn as though a player has placed 4 end crystals on the portal.
-  #entity: Only a dragon entity will be spawned, no boss bar will be displayed, end crystals will not be restored and portals no will be created.
+  #entity: Only a dragon entity will be spawned, end crystals will not be restored and portals no will be created.
   cooldown: 1440
 
 dragon:
@@ -24,6 +24,7 @@ dragon:
 options:
   dragon_damage_enderman: false
   enderman_target_dragon: false
+  disable_bossbar: false # Only for entity mode   
   disable_endcrystal_onbedrock:
     worlds:
     - world_the_end
@@ -88,48 +89,65 @@ abilities:
     effects:
      - NAUSEA:60:0
 
-drops:
-  egg: 0.15
-  head: 0.15
-
-custom_drops:
-  '1737159193811':
+custom_drops: # You can add unlimited rewards usind /dragon add_custom_drop
+  '1737553617552':
     item:
       ==: org.bukkit.inventory.ItemStack
       v: 4189
-      type: BOW
-    chance: 0.5
-    broadcast_text: 'Something special has been dropped'
+      type: DRAGON_HEAD
+    chance: 0.15
+    broadcast_text: 'The Dragon head has been dropped.'
+  '1737553618717':
+    item:
+      ==: org.bukkit.inventory.ItemStack
+      v: 4189
+      type: DRAGON_EGG
+    chance: 0.15
+    broadcast_text: 'Dragon egg has fallen in the place of his death'
 
 rewards:
-  1:
-    chance: 1.0
-    broadcast_text: ""
-    drops: 
-    - ENDER_EYE
-    - BONE
-    commands: 
-    - eco give %player% 100
-    - give %player% diamond 4
-  2:
-    chance: 0.50
-    broadcast_text: ""
-    drops: 
-    - BONE
-    commands: 
-    - eco give %player% 100
-    - give %player% emerald 4
-  3:
-    chance: 0.0
-    broadcast_text: "Example: 0%"
-    drops: 
-    - DIAMOND 
+  who_killed_dragon:
+    1:
+      chance: 1.0
+      broadcast_text: ""
+      drops: 
+      - ENDER_EYE
+      - BONE
+      commands: 
+      - eco give %player% 100
+      - give %player% diamond 4
+    2:
+      chance: 0.50
+      broadcast_text: ""
+      drops: 
+      - BONE
+      commands: 
+      - eco give %player% 100
+      - give %player% emerald 4
+  top_damager:
+    1:
+      chance: 1.0
+      broadcast_text: ""
+      drops: 
+      - ENDER_EYE
+      - BONE
+      commands: 
+      - eco give %player% 50
+      - give %player% diamond 1
+  all_damagers:
+    1:
+      chance: 1.0
+      broadcast_text: ""
+      drops: 
+      - ENDER_EYE
+      - BONE
+      commands: 
+      - eco give %player% 10
+
 
 messages:
   respawn: "&7The &5Ender Dragon &7has respawned."
   onkill: "&7The player &c%player% &7has kill the &5Ender Dragon."
-  dropegg: "&7You have killed the dragon and its egg has fallen in the place of his death."
-  drophead: "&7You have killed the dragon and its head has been dropped."
   endcrystal: "&cYou cant use ender crystal on bedrock."
   next_dragon: "&7%hours% hours and %min% minutes"
 
@@ -169,3 +187,4 @@ statue:
     x: 10
     y: 350
     z: 0
+

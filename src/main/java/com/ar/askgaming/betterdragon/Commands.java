@@ -29,7 +29,7 @@ public class Commands implements TabExecutor{
         List<String> result = new ArrayList<String>();
 
         if (args.length == 1) {
-            result = new ArrayList<>(Arrays.asList("kill", "respawn","set_respawn","set_statue","tp","top","reload","next","add_custom_drop","test_rewards"));
+            result = new ArrayList<>(Arrays.asList("kill", "respawn","set_respawn","set_statue","tp","top","reload","next","add_custom_drop","test_rewards","add_crystal"));
         }
 
         return result;
@@ -90,7 +90,8 @@ public class Commands implements TabExecutor{
                 break;
                 case "test_rewards":
                     if (p != null){
-                        plugin.getDragonManager().proccesRewards(p, p.getLocation());
+                        plugin.getDragonManager().proccesCustomDrops(p, p.getLocation());
+                        plugin.getDragonManager().proccesRewards(p, p.getLocation(), "who_killed_dragon");
                     } else sender.sendMessage("This command must be sended by a player.");
                     return true;
                 case "set_respawn":
@@ -99,7 +100,14 @@ public class Commands implements TabExecutor{
                         sender.sendMessage("New respawn location set.");
                     } else sender.sendMessage("This command must be sended by a player.");
                 break;
+                    
+                case "add_crystal":
+                    if (p != null){
+                        plugin.getDragonManager().addCrystal(p.getLocation());
+                        sender.sendMessage("Crystal added.");
 
+                    } else sender.sendMessage("This command must be sended by a player.");
+                    break;
                 case "respawn":
                     Location l = plugin.getDragon().getRespawnLocacion();
                     if (l == null){
@@ -114,6 +122,7 @@ public class Commands implements TabExecutor{
                         } else sender.sendMessage("The respawn location is not in the end world.");
                     } else {
                         l.getWorld().spawn(l, EnderDragon.class);
+                        plugin.getDragonManager().respawnCrystals();
                     }
 
                     break;

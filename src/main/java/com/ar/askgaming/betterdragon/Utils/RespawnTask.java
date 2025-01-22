@@ -1,5 +1,6 @@
 package com.ar.askgaming.betterdragon.Utils;
 
+import java.util.List;
 import java.util.logging.Level;
 
 import org.bukkit.Bukkit;
@@ -41,12 +42,12 @@ public class RespawnTask implements Runnable {
                 plugin.getLogger().log(Level.WARNING, "The chunk of the respawn location is not loaded, no dragon will be respawned.");
                 return;
             }
-            String mode = plugin.getConfig().getString("respawn.mode", "spawn");
+            String mode = plugin.getConfig().getString("respawn.mode", "default");
             if (mode.equalsIgnoreCase("default")){
                 plugin.getDragonManager().newDragonBattle(); 
-            } else {
+            } else if (!plugin.getDragonManager().isDragonAlive(l.getWorld())){
                 l.getWorld().spawnEntity(l, EntityType.ENDER_DRAGON);
-                Bukkit.broadcastMessage(plugin.getLang("messages.respawn"));  
+                plugin.getDragonManager().respawnCrystals();
             }       
         }
     }

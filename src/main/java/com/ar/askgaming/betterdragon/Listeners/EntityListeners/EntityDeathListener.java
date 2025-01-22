@@ -24,6 +24,7 @@ public class EntityDeathListener implements Listener{
             //Set the death time
             long deathTime = System.currentTimeMillis() / 60000;				
             plugin.getDragon().setDeathTime(deathTime);
+            plugin.getDragonBossBar().removeBossBar(eDragon);
 
             if (e.getEntity().getKiller() instanceof Player) {	
                 
@@ -36,7 +37,9 @@ public class EntityDeathListener implements Listener{
                 // Update the player's kills in the database
                 plugin.getDataHandler().updateDragonKills(p);
 
-                plugin.getDragonManager().proccesRewards(p, eDragon.getLocation());
+                plugin.getDragonManager().proccesCustomDrops(p, eDragon.getLocation());
+                plugin.getDragonManager().proccesRewards(p, eDragon.getLocation(), "who_killed_dragon");
+                plugin.getDragonManager().checkDamagersAndReward(eDragon);
 
 
             }

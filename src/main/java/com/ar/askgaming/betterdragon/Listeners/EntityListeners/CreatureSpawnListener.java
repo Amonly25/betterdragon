@@ -33,7 +33,6 @@ public class CreatureSpawnListener implements Listener{
             eDragon.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(plugin.getDragon().getHealth());
             eDragon.setHealth(plugin.getDragon().getHealth());
          
-                  
             eDragon.setCustomNameVisible(plugin.getConfig().getBoolean("options.name_visible"));
             
             Bukkit.broadcastMessage(plugin.getLang("messages.respawn"));
@@ -42,6 +41,13 @@ public class CreatureSpawnListener implements Listener{
                 BossBar bossBar = eDragon.getDragonBattle().getBossBar();
                 plugin.getDragonManager().updateBossBar(bossBar);
             }
+            plugin.getServer().getScheduler().runTaskLater(plugin, new Runnable() {
+                @Override
+                public void run() {
+                    Bukkit.getOnlinePlayers().forEach(player -> plugin.getDragonBossBar().checkToBossBar(player));
+                }
+            }, 10);
+
         }
     }
 }
