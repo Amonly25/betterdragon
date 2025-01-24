@@ -45,14 +45,14 @@ public class DragonBossBar {
 
         bossBars.forEach((dragon, bossBar) -> {
             if (!dragons.contains(dragon)) {
-                Bukkit.broadcastMessage("Dragon not found, removing boss bar");
+                //Bukkit.broadcastMessage("Dragon not found, removing boss bar");
                 bossBar.removePlayer(player);
             }
         });
-        Bukkit.broadcastMessage("size: " + dragons.size());
+        //Bukkit.broadcastMessage("size: " + dragons.size());
         if (dragons.size() > 0) {
             for (EnderDragon dragon : dragons) {
-                Bukkit.broadcastMessage("Dragon found, adding boss bar");
+                //Bukkit.broadcastMessage("Dragon found, adding boss bar");
                 BossBar bossBar = getOrCreateBossBar(dragon);
                 bossBar.addPlayer(player);
             }

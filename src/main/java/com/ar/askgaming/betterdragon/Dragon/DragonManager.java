@@ -108,17 +108,17 @@ public class DragonManager {
             // Obtener el jugador con más daño (top 1)
             Map.Entry<Player, Double> topDamager = damagerList.remove(0); // Remover y obtener el primer elemento
             Player topPlayer = topDamager.getKey();
-            double topDamage = topDamager.getValue();
+            //double topDamage = topDamager.getValue();
             proccesRewards(topPlayer, topPlayer.getLocation(), "top_damager");
 
             // Crear una lista con el resto de los jugadores (sin el top 1)
             List<Map.Entry<Player, Double>> remainingDamagers = new ArrayList<>(damagerList);
 
             // Mostrar o usar los resultados
-            Bukkit.broadcastMessage("Top damager: " + topPlayer.getName() + " with " + topDamage + " damage.");
-            Bukkit.broadcastMessage("Other players and their damage:");
+           // Bukkit.broadcastMessage("Top damager: " + topPlayer.getName() + " with " + topDamage + " damage.");
+           // Bukkit.broadcastMessage("Other players and their damage:");
             for (Map.Entry<Player, Double> entry : remainingDamagers) {
-                Bukkit.broadcastMessage(entry.getKey().getName() + " - " + entry.getValue() + " damage.");
+                //Bukkit.broadcastMessage(entry.getKey().getName() + " - " + entry.getValue() + " damage.");
                 proccesRewards(entry.getKey(), entry.getKey().getLocation(), "all_damagers");
             }
         }

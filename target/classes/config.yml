@@ -25,6 +25,7 @@ options:
   dragon_damage_enderman: false
   enderman_target_dragon: false
   disable_bossbar: false # Only for entity mode   
+  xp_drop: 500 # default 500 - 0 to disable
   disable_endcrystal_onbedrock:
     worlds:
     - world_the_end

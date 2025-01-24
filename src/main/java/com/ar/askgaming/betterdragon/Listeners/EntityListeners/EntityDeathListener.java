@@ -1,5 +1,6 @@
 package com.ar.askgaming.betterdragon.Listeners.EntityListeners;
 
+import org.bukkit.Bukkit;
 import org.bukkit.entity.EnderDragon;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -26,6 +27,8 @@ public class EntityDeathListener implements Listener{
             plugin.getDragon().setDeathTime(deathTime);
             plugin.getDragonBossBar().removeBossBar(eDragon);
 
+            int exp = plugin.getConfig().getInt("options.xp_drop",500);
+            e.setDroppedExp(exp);
             if (e.getEntity().getKiller() instanceof Player) {	
                 
                 // Set Dragon killes
