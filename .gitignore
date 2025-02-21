@@ -9,6 +9,8 @@
 *.user
 *.userosscache
 *.sln.docstates
+*.class
+*.jar
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
@@ -396,5 +398,5 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
-target/betterdragon-3.7.jar
-target/classes/com/ar/askgaming/betterdragon/Dragon/DragonAbilities.class
+target/
+
