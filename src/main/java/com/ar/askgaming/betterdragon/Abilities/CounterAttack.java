@@ -1,4 +1,4 @@
-package com.ar.askgaming.betterdragon.Dragon;
+package com.ar.askgaming.betterdragon.Abilities;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,12 +21,12 @@ import com.ar.askgaming.betterdragon.BetterDragon;
 
 import net.md_5.bungee.api.ChatColor;
 
-public class DragonAbilities {
+public class CounterAttack {
 
     private List<String> abilities = new ArrayList<>();
 
     private BetterDragon plugin;
-    public DragonAbilities(BetterDragon main) {
+    public CounterAttack(BetterDragon main) {
         plugin = main;
 
         ConfigurationSection abilities = plugin.getConfig().getConfigurationSection("abilities");

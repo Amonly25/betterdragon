@@ -4,7 +4,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.ar.askgaming.betterdragon.Dragon.DragonData;
-import com.ar.askgaming.betterdragon.Dragon.DragonAbilities;
+import com.ar.askgaming.betterdragon.Abilities.CounterAttack;
 import com.ar.askgaming.betterdragon.Dragon.DragonBossBar;
 import com.ar.askgaming.betterdragon.Dragon.DragonManager;
 import com.ar.askgaming.betterdragon.Dragon.DragonStatue;
@@ -29,7 +29,7 @@ public class BetterDragon extends JavaPlugin{
     private DragonData dragon;
     private DragonBossBar dragonBossBar;
     private DragonStatue statue;
-    private DragonAbilities dragonAbilities;
+    private CounterAttack dragonAbilities;
     
     public void onEnable() {
 
@@ -39,7 +39,7 @@ public class BetterDragon extends JavaPlugin{
         dragon = new DragonData(this);
         dragonManager = new DragonManager(this);
         statue = new DragonStatue(this);
-        dragonAbilities = new DragonAbilities(this);
+        dragonAbilities = new CounterAttack(this);
         dragonBossBar = new DragonBossBar(this);
 
         Bukkit.getPluginManager().registerEvents(new CreatureSpawnListener(this), this);
@@ -71,7 +71,7 @@ public class BetterDragon extends JavaPlugin{
         }
         return "Undefined path " + s;
     }
-    public DragonAbilities getDragonAbilities() {
+    public CounterAttack getDragonAbilities() {
         return dragonAbilities;
     }
     public DragonStatue getStatue() {

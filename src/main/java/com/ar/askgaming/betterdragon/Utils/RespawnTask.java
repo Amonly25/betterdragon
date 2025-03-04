@@ -1,9 +1,7 @@
 package com.ar.askgaming.betterdragon.Utils;
 
-import java.util.List;
 import java.util.logging.Level;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.EntityType;
 
@@ -43,8 +41,10 @@ public class RespawnTask implements Runnable {
                 return;
             }
             String mode = plugin.getConfig().getString("respawn.mode", "default");
+
             if (mode.equalsIgnoreCase("default")){
                 plugin.getDragonManager().newDragonBattle(); 
+                
             } else if (!plugin.getDragonManager().isDragonAlive(l.getWorld())){
                 l.getWorld().spawnEntity(l, EntityType.ENDER_DRAGON);
                 plugin.getDragonManager().respawnCrystals();

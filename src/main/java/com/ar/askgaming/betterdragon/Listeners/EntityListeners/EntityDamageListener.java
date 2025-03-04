@@ -1,8 +1,6 @@
 package com.ar.askgaming.betterdragon.Listeners.EntityListeners;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Arrow;

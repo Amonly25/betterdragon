@@ -20,6 +20,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import com.ar.askgaming.betterdragon.BetterDragon;
+import com.ar.askgaming.betterdragon.Abilities.Timed;
 
 import net.md_5.bungee.api.ChatColor;
 
@@ -28,6 +29,8 @@ public class DragonManager {
     private BetterDragon plugin;
     public DragonManager(BetterDragon plugin) {
         this.plugin = plugin;
+
+        new Timed(plugin);
     }
     public List<EnderDragon> getDragonsAlive() {
 
