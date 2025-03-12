@@ -1,6 +1,5 @@
 package com.ar.askgaming.betterdragon.Listeners.EntityListeners;
 
-import org.bukkit.Bukkit;
 import org.bukkit.entity.EnderDragon;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -46,6 +45,7 @@ public class EntityDeathListener implements Listener{
 
 
             }
+            plugin.getLeaderboard().updateText();
         }
     }
 }

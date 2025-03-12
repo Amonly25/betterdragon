@@ -2,7 +2,6 @@ package com.ar.askgaming.betterdragon;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
 
 import org.bukkit.Location;
 import org.bukkit.World.Environment;
@@ -29,7 +28,7 @@ public class Commands implements TabExecutor{
         List<String> result = new ArrayList<String>();
 
         if (args.length == 1) {
-            result = new ArrayList<>(Arrays.asList("kill", "respawn","set_respawn","set_statue","tp","top","reload","next","add_custom_drop","test_rewards","add_crystal"));
+            result = new ArrayList<>(Arrays.asList("kill", "respawn","set_respawn","set_statue","tp","get_top","set_top","reload","next","add_custom_drop","test_rewards","add_crystal"));
         }
 
         return result;
@@ -69,25 +68,15 @@ public class Commands implements TabExecutor{
                     } else sender.sendMessage("There is not an alive dragon.");
                 break;
 
-                case "top":
-                    if (plugin.getDataHandler().getKillsLeaderboard() != null) {
-                        
-                        String prefix = plugin.getLang("leaderboard.prefix");
-                        String separator = plugin.getLang("leaderboard.separator");
-                        String suffix = plugin.getLang("leaderboard.suffix");
-                        
-                        final int MAX_RESULTS = 10;
-                        final AtomicInteger counter = new AtomicInteger(0);
-                        
-                        plugin.getDataHandler().getKillsLeaderboard().forEach((name, kills) -> {
-                            if (counter.getAndIncrement() < MAX_RESULTS) {
-                                sender.sendMessage(prefix + name + separator + kills + suffix);
-                            } else {
-                                return;
-                            }
-                        });;
-                    }
+                case "get_top":
+                    sender.sendMessage(plugin.getLeaderboard().getTop());
                 break;
+                case "set_top":
+                    if (p != null){
+                        plugin.getLeaderboard().createOrUpdateLeaderBoard(p.getLocation());
+                        sender.sendMessage("Leaderboard set.");
+                    } else sender.sendMessage("This command must be sended by a player.");
+                    break;
                 case "test_rewards":
                     if (p != null){
                         plugin.getDragonManager().proccesCustomDrops(p, p.getLocation());
@@ -130,6 +119,10 @@ public class Commands implements TabExecutor{
                 case "reload":
                     plugin.reloadConfig();
                     plugin.setDragon(new DragonData(plugin));
+                    plugin.getDragonAbilities().load();
+                    plugin.getLeaderboard().reload();
+                    plugin.getStatue().load();
+                    
                     sender.sendMessage("Config reloaded.");
                 break;
 
@@ -138,6 +131,10 @@ public class Commands implements TabExecutor{
                 break;
 
                 case "add_custom_drop":
+                    if (p == null){
+                        sender.sendMessage("This command must be sended by a player.");
+                        return true;
+                    }
                     ItemStack item = p.getInventory().getItemInMainHand();
                     if (item != null){
                         String id = System.currentTimeMillis() + "";
@@ -152,7 +149,7 @@ public class Commands implements TabExecutor{
 
                 case "set_statue":
                     if (p != null){
-                        plugin.getStatue().spawn(p.getLocation(), p);
+                        plugin.getStatue().move(p.getLocation());
                         sender.sendMessage("Statue spawned.");
                     } else sender.sendMessage("This command must be sended by a player.");
                 break;

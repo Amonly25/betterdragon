@@ -17,9 +17,10 @@ respawn:
 
 dragon:
   name: "&5Ender Dragon"
-  health: 1200 # 200 is the default
+  health: 800 # 200 is the default
   damage_multiplier: 2
   bossbar_color: PURPLE
+  abilities_time: 10 # Time in seconds to scan a player to use an ability
   
 options:
   dragon_damage_enderman: false
@@ -34,37 +35,42 @@ data:
   death_time: 0
   killer: "Steave"
   respawn_location: null
-  statue: null
 
 abilities:
+  fireball:
+    chance: 1
+    msg_to_player: "&5Dragon: &7Take this!!"
+    fireball: true
+    sounds:
+    - ENTITY_ENDER_DRAGON_SHOOT
+  dragon_fireball:
+    chance: 1
+    msg_to_player: "&5Dragon: &7Burnnnn"
+    dragon_fireball: true
+    sounds:
+    - ENTITY_ENDER_DRAGON_SHOOT
   lightning:
-    chance: 0.3
+    chance: 1
     super_lightning: true
     msg_to_player: "&5Dragon: &7You cant against my power"
     #commands:
     #- maybe a espetacular command?
-  dodge:
-    chance: 1.0
-    msg_to_player: "&5Dragon: &7You failed, you are worth nothing"
-    block_damage: true
-    sounds:
-    - ITEM_SHIELD_BLOCK
   impulse:
-    chance: 0.3
+    chance: 1
     msg_to_player: "&5Dragon: &7Agggggrhh"
-    knockback_power: 3
+    knockback_power: 1
     damage_player: 10
     sounds:
     - ENTITY_ENDER_DRAGON_GROWL
     - ENTITY_PLAYER_ATTACK_SWEEP
   explosion:
-    chance: 0.3
+    chance: 1
     msg_to_player: "&5Dragon: &7Dieeeeee!!"  
-    make_explosion: true
+    explosion: true
     sounds:
     - ENTITY_ENDER_DRAGON_GROWL
   ender_attack:
-    chance: 0.15
+    chance: 0.7
     msg_to_player: "&5Dragon: &7Attack endermans!!"  
     ender_attack: true
     sounds:
@@ -81,12 +87,14 @@ abilities:
     #-any awesome command
     sounds:
     - ENTITY_ENDER_DRAGON_GROWL
-    block_damage: true
-    knockback_power: 3
+    knockback_power: 1
     damage_player: 10
-    create_explosion: true
+    explosion: true
     super_lightning: true
     ender_attack: true
+    fireball: true
+    dragon_fireball: true
+    wind_charge: true
     effects:
      - NAUSEA:60:0
 
@@ -153,9 +161,11 @@ messages:
   next_dragon: "&7%hours% hours and %min% minutes"
 
 leaderboard:
-  prefix: "&c"
-  separator: " &7> &e"
-  suffix: " &7kills"
+  format: "&f%position%. &7%player% &8>> &c%kills% &7kills"
+  title: "&5&lDragon Kill Top"
+  positions: 10
+  # Dont touch this use /duels set_leaderboard to create and move the hologram
+  location:
 
 statue:
   baseplate: false
@@ -168,6 +178,7 @@ statue:
   leggings: DIAMOND_LEGGINGS
   mainhand: DIAMOND_SWORD
   offhand: DRAGON_HEAD
+  location: 
   leftarm:
     x: 278
     y: 338

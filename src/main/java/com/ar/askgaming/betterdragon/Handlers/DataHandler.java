@@ -2,11 +2,7 @@ package com.ar.askgaming.betterdragon.Handlers;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 import org.bukkit.Statistic;
 import org.bukkit.configuration.InvalidConfigurationException;
@@ -63,18 +59,14 @@ public class DataHandler {
         savePlayersDataConfig();
     }
 
-    public Map<String, Integer> getKillsLeaderboard() {
+    public HashMap<String, Integer> getKills() {
     
-        Map<String, Integer> kills = new HashMap<>();
+        HashMap<String, Integer> kills = new HashMap<>();
                     
         for (String player : getPlayersDataConfig().getKeys(true)) {      	
             kills.put(player, getPlayersDataConfig().getInt(player));             
         }
 
-        if (!kills.isEmpty()) {
-            return kills.entrySet().stream().sorted(Collections.reverseOrder(Map.Entry.comparingByValue()))
-            .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (i, i2) -> i, LinkedHashMap::new));
-        } else return null;
+        return kills;
     }
-    
 }

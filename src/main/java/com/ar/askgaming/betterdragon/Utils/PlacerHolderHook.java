@@ -6,11 +6,6 @@ import org.bukkit.entity.EntityType;
 
 import com.ar.askgaming.betterdragon.BetterDragon;
 
-import java.util.ArrayList;
-import java.util.Map.Entry;
-import java.util.Set;
-import java.util.List;
-
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 
 public class PlacerHolderHook extends PlaceholderExpansion {
@@ -63,19 +58,11 @@ public class PlacerHolderHook extends PlaceholderExpansion {
 
         if (params.startsWith("top_")) {
 
-        	Set<Entry<String, Integer>> set = plugin.getDataHandler().getKillsLeaderboard().entrySet();
-	       List<Entry<String, Integer>> list = new ArrayList<Entry<String, Integer>>(set);
-
-            String prefix = plugin.getLang("leaderboard.prefix");
-            String separator = plugin.getLang("leaderboard.separator");
-            String suffix = plugin.getLang("leaderboard.suffix");
-
             String pos = params.replace("top_", "");
             int position = Integer.parseInt(pos);
-            if (position <= plugin.getDataHandler().getKillsLeaderboard().size()){
-                return prefix + list.get(position-1).toString().replace("=", separator) + suffix;
+            if (position <= plugin.getLeaderboard().getLines().size()) {
+                return plugin.getLeaderboard().getLines().get(position - 1);
             } else return "-";
-
         }
         
         return "Invalid Placeholder"; // Placeholder is unknown by the Expansion

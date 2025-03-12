@@ -2,7 +2,6 @@ package com.ar.askgaming.betterdragon.Listeners.EntityListeners;
 
 import java.util.HashMap;
 
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Arrow;
 import org.bukkit.entity.DragonFireball;
 import org.bukkit.entity.EnderDragon;
@@ -66,7 +65,7 @@ public class EntityDamageListener implements Listener{
             // Add player to the list of players that have damaged the dragon
             HashMap<Player, Double> damage = plugin.getDragonManager().getDragonDamagers().get(dragon);
             if (damage == null) {
-                Bukkit.broadcastMessage("damage is null");
+                //Bukkit.broadcastMessage("damage is null");
                 damage = new HashMap<>();
                 damage.put(player, e.getDamage());
                 plugin.getDragonManager().getDragonDamagers().put(dragon, damage);
@@ -78,7 +77,7 @@ public class EntityDamageListener implements Listener{
                 damage.put(player, dmg);
             }
 
-            plugin.getDragonAbilities().createCounterAttack(e, player);
+           // plugin.getDragonAbilities().createCounterAttack(dragon, player);
 
         }
     }

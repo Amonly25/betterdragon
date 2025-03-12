@@ -17,6 +17,7 @@ import com.ar.askgaming.betterdragon.Listeners.EntityListeners.EntityDeathListen
 import com.ar.askgaming.betterdragon.Listeners.EntityListeners.EntityTargetListener;
 import com.ar.askgaming.betterdragon.Listeners.EntityListeners.PlayerChangeWorldListener;
 import com.ar.askgaming.betterdragon.Listeners.EntityListeners.RegainHealthListener;
+import com.ar.askgaming.betterdragon.Utils.Leaderboard;
 import com.ar.askgaming.betterdragon.Utils.PlacerHolderHook;
 import com.ar.askgaming.betterdragon.Utils.RespawnTask;
 
@@ -30,6 +31,7 @@ public class BetterDragon extends JavaPlugin{
     private DragonBossBar dragonBossBar;
     private DragonStatue statue;
     private CounterAttack dragonAbilities;
+    private Leaderboard leaderboard;
     
     public void onEnable() {
 
@@ -41,6 +43,7 @@ public class BetterDragon extends JavaPlugin{
         statue = new DragonStatue(this);
         dragonAbilities = new CounterAttack(this);
         dragonBossBar = new DragonBossBar(this);
+        leaderboard = new Leaderboard(this);
 
         Bukkit.getPluginManager().registerEvents(new CreatureSpawnListener(this), this);
         Bukkit.getPluginManager().registerEvents(new PlayerJoinListener(this), this);
@@ -63,6 +66,8 @@ public class BetterDragon extends JavaPlugin{
 
     public void onDisable() {
         dragonBossBar.removeAllBossBars();
+        getStatue().remove();
+        getLeaderboard().removeLeaderBoard();
     }
 
     public String getLang(String s){
@@ -70,6 +75,9 @@ public class BetterDragon extends JavaPlugin{
             return ChatColor.translateAlternateColorCodes('&', getConfig().getString(s));
         }
         return "Undefined path " + s;
+    }
+    public Leaderboard getLeaderboard() {
+        return leaderboard;
     }
     public CounterAttack getDragonAbilities() {
         return dragonAbilities;

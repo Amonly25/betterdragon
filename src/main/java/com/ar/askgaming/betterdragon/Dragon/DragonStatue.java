@@ -1,14 +1,11 @@
 package com.ar.askgaming.betterdragon.Dragon;
 
 
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.EntityType;
-import org.bukkit.entity.LivingEntity;
-import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.profile.PlayerProfile;
@@ -20,39 +17,46 @@ import net.md_5.bungee.api.ChatColor;
 
 public class DragonStatue {
 
-	private String UUID;
+	private ArmorStand statue;
+	private Location location;
 
     private BetterDragon plugin;
     public DragonStatue(BetterDragon main) {
 
         plugin = main;
-
-		if (plugin.getConfig().get("data.statue") != null) {
-			UUID = plugin.getConfig().getString("statue");
-		}
+		load();
     }
-
-	private ArmorStand statue;
-
-	public ArmorStand getArmorStand(){
-        Bukkit.getWorlds().forEach(world ->{
-
-			for (LivingEntity entity : world.getLivingEntities()) {
-                if (entity instanceof ArmorStand) {
-
-                   if (entity.getUniqueId().toString().replace("!!java.util.UUID ", "").equals(UUID)){
-						statue = (ArmorStand) entity;
-						break;
-				   }
-                }
-            }
-        });        
-		return statue;
+	public void load(){
+		location = plugin.getConfig().getLocation("statue.location");
+		if (location == null){
+			return;
+		}
+		if (statue != null){
+			statue.remove();
+		}
+		
+		spawn(location);
+	}
+	public void move(Location l){
+		location = l;
+		plugin.getConfig().set("statue.location", l);
+		plugin.saveConfig();
+		if (statue == null){
+			spawn(l);
+			return;
+		}
+		statue.teleport(l);
+	}
+	public void remove(){
+		if (statue == null){
+			return;
+		}
+		statue.remove();
 	}
 
-    public void spawn(Location l, Player player) {
+    public void spawn(Location l) {
 
-        ArmorStand statue = (ArmorStand) l.getWorld().spawnEntity(l,EntityType.ARMOR_STAND);
+        statue = (ArmorStand) l.getWorld().spawnEntity(l,EntityType.ARMOR_STAND);
 
         FileConfiguration conf = plugin.getConfig();
 
@@ -64,12 +68,7 @@ public class DragonStatue {
 		statue.setCustomNameVisible(conf.getBoolean("statue.name_visible"));
 		statue.setSmall(conf.getBoolean("statue.small"));
 
-		String id = statue.getUniqueId().toString().replace("!!java.util.UUID ", "");
-		UUID = id;
-		
-		plugin.getConfig().set("data.statue", id);
-		plugin.saveConfig();
-
+		statue.setRotation(location.getYaw(), location.getPitch());
 
         statue.setLeftArmPose(new EulerAngle(
 				Math.toRadians(conf.getInt("statue.leftarm.x")), 
@@ -114,10 +113,11 @@ public class DragonStatue {
         ItemStack skull = new ItemStack(Material.PLAYER_HEAD);
         SkullMeta meta = (SkullMeta) skull.getItemMeta();
 
-		String player = "Steave";
+		String player = "Steve";
+		String killer = plugin.getDragon().getKillerName();
 
-		if (!plugin.getDragon().getKillerName().isBlank()){
-			player = plugin.getDragon().getKillerName();
+		if (killer != null && !killer.isBlank()){
+			player = killer;
 		}
 
 		PlayerProfile pf = plugin.getServer().createPlayerProfile(player);
@@ -129,10 +129,11 @@ public class DragonStatue {
 
 	public void updateStatue(){
 
-		if (getArmorStand() == null) return;
-		ArmorStand statue = getArmorStand();
+		if (statue == null){
+			return;
+		}
 
-		String name = plugin.getConfig().getString("statue.name").replace("%player%", plugin.getDragon().getKillerName());
+		String name = plugin.getDragon().getKillerName();
 		statue.setCustomName(ChatColor.translateAlternateColorCodes('&', name));
 		ItemStack head = makeSkull();
 		statue.getEquipment().setHelmet(head);
