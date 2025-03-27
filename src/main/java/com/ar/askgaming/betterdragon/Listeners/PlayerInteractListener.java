@@ -14,9 +14,12 @@ import com.ar.askgaming.betterdragon.BetterDragon;
 
 public class PlayerInteractListener implements Listener{
 
-    private BetterDragon plugin;
-    public PlayerInteractListener(BetterDragon main){
-        plugin = main;
+    private final BetterDragon plugin;
+    
+    public PlayerInteractListener(){
+        plugin = BetterDragon.getInstance();
+        plugin.getServer().getPluginManager().registerEvents(this, plugin);
+
     }
 
     @EventHandler()
@@ -33,7 +36,7 @@ public class PlayerInteractListener implements Listener{
     		for (String worlds : disableWorlds) {
     			if (p.getLocation().getWorld().getName().equalsIgnoreCase(worlds)) {
         	    	      	       		
-        			event.getPlayer().sendMessage(plugin.getLang("messages.endcrystal"));
+        			event.getPlayer().sendMessage(plugin.getLangHandler().getFrom("endcrystal", p));
         			event.setCancelled(true);       			
         		}
         	}

@@ -9,10 +9,9 @@ import com.ar.askgaming.betterdragon.BetterDragon;
 
 public class RegainHealthListener implements Listener {
 
-    private BetterDragon plugin;
-    public RegainHealthListener(BetterDragon main){
-        plugin = main;
-
+    private final BetterDragon plugin;
+    public RegainHealthListener(){
+        plugin = BetterDragon.getInstance();
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
     }
 

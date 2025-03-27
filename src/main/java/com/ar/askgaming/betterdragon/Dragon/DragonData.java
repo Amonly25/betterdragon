@@ -3,6 +3,7 @@ package com.ar.askgaming.betterdragon.Dragon;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.entity.Player;
 
 import com.ar.askgaming.betterdragon.BetterDragon;
 
@@ -19,6 +20,9 @@ public class DragonData {
     public DragonData(BetterDragon main) {
         plugin = main;
 
+        load();
+    }
+    public void load(){
         FileConfiguration conf = plugin.getConfig();
 
         name = conf.getString("dragon.name", "Ender Dragon").replace("&", "§");
@@ -47,10 +51,14 @@ public class DragonData {
         return killerName;
     }
     public void setKiller(String killerName) {
+
         this.killerName = killerName;
-        String text = plugin.getLang("messages.onkill").replace("%player%", killerName);		
-        Bukkit.broadcastMessage(text);
-        plugin.getStatue().updateStatue();
+
+        for (Player pl : Bukkit.getOnlinePlayers()){
+            pl.sendMessage(plugin.getLangHandler().getFrom("onkill", pl).replace("%player%", killerName));
+        }
+
+        plugin.getDragonStatue().updateStatue();
         plugin.getConfig().set("data.killer", killerName);
         plugin.saveConfig();
 

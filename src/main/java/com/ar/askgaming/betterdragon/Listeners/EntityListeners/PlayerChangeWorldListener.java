@@ -9,10 +9,9 @@ import com.ar.askgaming.betterdragon.BetterDragon;
 
 public class PlayerChangeWorldListener implements Listener{
 
-    private BetterDragon plugin;
-    public PlayerChangeWorldListener(BetterDragon main){
-        plugin = main;
-
+    private final BetterDragon plugin;
+    public PlayerChangeWorldListener(){
+        plugin = BetterDragon.getInstance();
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
     }
     @EventHandler

@@ -32,6 +32,9 @@ public class DragonManager {
 
         new Timed(plugin);
     }
+    private HashMap<EnderDragon, HashMap<Player, Double>> dragonDamagers = new HashMap<>();
+
+    //#region Dragon
     public List<EnderDragon> getDragonsAlive() {
 
         List<EnderDragon> list = new ArrayList<>();
@@ -56,29 +59,27 @@ public class DragonManager {
         return false;
     }
 
-    HashMap<EnderDragon, HashMap<Player, Double>> dragonDamagers = new HashMap<>();
-
     public HashMap<EnderDragon, HashMap<Player, Double>> getDragonDamagers() {
         return dragonDamagers;
     }
-
+    //#region Next
     public String getNext(){
         long actualTime = System.currentTimeMillis() / 60000;
-        long deathTime = plugin.getDragon().getDeathTime();
-        long respawnTime = plugin.getDragon().getRespawnTime();
+        long deathTime = plugin.getDragonData().getDeathTime();
+        long respawnTime = plugin.getDragonData().getRespawnTime();
         long time = respawnTime - (actualTime - deathTime);
 
         if (time < 0) {time = 0;}
 
         long hours = time / 60;
         long minutes = time % 60;
-        String text = plugin.getLang("messages.next_dragon").replace("%hours%", String.valueOf(hours)).replace("%min%", String.valueOf(minutes));
+        String text = plugin.getLangHandler().getFrom("next_dragon", null).replace("%hours%", String.valueOf(hours)).replace("%min%", String.valueOf(minutes));
     
         return text;
 
     }
     public void newDragonBattle(){
-        Location l = plugin.getDragon().getRespawnLocacion();
+        Location l = plugin.getDragonData().getRespawnLocacion();
         if (l != null && l.getWorld().getEnvironment() == Environment.THE_END){
             l.getWorld().getEnderDragonBattle().initiateRespawn(null);
             return;
@@ -94,7 +95,7 @@ public class DragonManager {
         }
         bossBar.setColor(color);
 
-        String title = plugin.getDragon().getName();
+        String title = plugin.getDragonData().getName();
         bossBar.setTitle(title);
     
     }
@@ -127,7 +128,7 @@ public class DragonManager {
         }
     }
 
-
+    //#region CustomDrops
     public void proccesCustomDrops(Player p, Location loc){
         FileConfiguration cfg = plugin.getConfig();
         // Custom drops
@@ -144,11 +145,10 @@ public class DragonManager {
             }
         }
     }
+    //#region Rewards
     public void proccesRewards(Player p, Location loc, String path){
 
-        FileConfiguration cfg = plugin.getConfig();
-        
-        //Handling rewards              
+        FileConfiguration cfg = plugin.getConfig();        
 
         for (String key : cfg.getConfigurationSection("rewards."+path).getKeys(false)){
             double chance = Math.random();
@@ -171,6 +171,7 @@ public class DragonManager {
             }
         }
     }
+    //#region Crystal
     public List<Location> getCrystalLocations() {
         Object obj = plugin.getConfig().get("crystals");
         

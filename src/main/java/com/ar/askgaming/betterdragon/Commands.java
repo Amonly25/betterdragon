@@ -12,26 +12,24 @@ import org.bukkit.entity.EnderDragon;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-import com.ar.askgaming.betterdragon.Dragon.DragonData;
-
 
 public class Commands implements TabExecutor{
 
-    private BetterDragon plugin;
-    public Commands(BetterDragon main) {
-        plugin = main;
+    private final BetterDragon plugin;
+    public Commands() {
+        plugin = BetterDragon.getInstance();
+
+        plugin.getServer().getPluginCommand("dragon").setExecutor(this);
     }
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
         
-        List<String> result = new ArrayList<String>();
-
         if (args.length == 1) {
-            result = new ArrayList<>(Arrays.asList("kill", "respawn","set_respawn","set_statue","tp","get_top","set_top","reload","next","add_custom_drop","test_rewards","add_crystal"));
+            return new ArrayList<>(Arrays.asList("kill", "respawn","set_respawn","set_statue","tp","get_top","set_top","reload","next","add_custom_drop","test_rewards","add_crystal"));
         }
 
-        return result;
+        return null;
     }
 
     @Override
@@ -52,9 +50,6 @@ public class Commands implements TabExecutor{
                     if (!plugin.getDragonManager().getDragonsAlive().isEmpty()){
                         for (EnderDragon e : plugin.getDragonManager().getDragonsAlive()){
                             e.setHealth(0);
-                        }
-                        if (p != null){
-                            plugin.getDragon().setKiller("Server");
                         }
                     } else sender.sendMessage("There is not an alive dragon.");
 
@@ -85,7 +80,7 @@ public class Commands implements TabExecutor{
                     return true;
                 case "set_respawn":
                     if (p != null){
-                        plugin.getDragon().setRespawnLocacion(((Player) sender).getLocation());
+                        plugin.getDragonData().setRespawnLocacion(((Player) sender).getLocation());
                         sender.sendMessage("New respawn location set.");
                     } else sender.sendMessage("This command must be sended by a player.");
                 break;
@@ -98,7 +93,7 @@ public class Commands implements TabExecutor{
                     } else sender.sendMessage("This command must be sended by a player.");
                     break;
                 case "respawn":
-                    Location l = plugin.getDragon().getRespawnLocacion();
+                    Location l = plugin.getDragonData().getRespawnLocacion();
                     if (l == null){
                         sender.sendMessage("The respawn location is not set.");
                         return true;
@@ -107,22 +102,24 @@ public class Commands implements TabExecutor{
                     if (mode.equals("default")){
                         if (l.getWorld().getEnvironment() == Environment.THE_END){
                             plugin.getDragonManager().newDragonBattle();
+                            sender.sendMessage("Starting new dragon battle... please wait.");
 
                         } else sender.sendMessage("The respawn location is not in the end world.");
                     } else {
                         l.getWorld().spawn(l, EnderDragon.class);
                         plugin.getDragonManager().respawnCrystals();
+                        sender.sendMessage("Dragon respawned.");
                     }
 
                     break;
 
                 case "reload":
                     plugin.reloadConfig();
-                    plugin.setDragon(new DragonData(plugin));
+                    plugin.getDragonData().load();
                     plugin.getDragonAbilities().load();
                     plugin.getLeaderboard().reload();
-                    plugin.getStatue().load();
-                    
+                    plugin.getDragonStatue().load();
+                    plugin.getLangHandler().load();
                     sender.sendMessage("Config reloaded.");
                 break;
 
@@ -149,7 +146,7 @@ public class Commands implements TabExecutor{
 
                 case "set_statue":
                     if (p != null){
-                        plugin.getStatue().move(p.getLocation());
+                        plugin.getDragonStatue().move(p.getLocation());
                         sender.sendMessage("Statue spawned.");
                     } else sender.sendMessage("This command must be sended by a player.");
                 break;

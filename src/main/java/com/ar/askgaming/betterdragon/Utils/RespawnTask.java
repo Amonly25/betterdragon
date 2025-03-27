@@ -4,15 +4,18 @@ import java.util.logging.Level;
 
 import org.bukkit.Location;
 import org.bukkit.entity.EntityType;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import com.ar.askgaming.betterdragon.BetterDragon;
 
-//change to bukkitrunnable on a manager
-public class RespawnTask implements Runnable {
+public class RespawnTask extends BukkitRunnable {
 
-    private BetterDragon plugin;
-    public RespawnTask(BetterDragon main) {
-        this.plugin = main;
+    private final BetterDragon plugin;
+
+    public RespawnTask() {
+        this.plugin = BetterDragon.getInstance();
+
+        runTaskTimer(plugin, 1200L, 1200L);
     }
 
     @Override
@@ -23,13 +26,13 @@ public class RespawnTask implements Runnable {
         }
                 
         long actualTime = System.currentTimeMillis() / 60000;
-		long deathTime = plugin.getDragon().getDeathTime();
+		long deathTime = plugin.getDragonData().getDeathTime();
 
-        long respawnTime = plugin.getDragon().getRespawnTime();
+        long respawnTime = plugin.getDragonData().getRespawnTime();
 
         if ((actualTime - deathTime) >= respawnTime) {
 
-            Location l = plugin.getDragon().getRespawnLocacion();
+            Location l = plugin.getDragonData().getRespawnLocacion();
 
             if (l == null){
                 plugin.getLogger().log(Level.WARNING, "The respawn location is not set, no dragon will be respawned.");

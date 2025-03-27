@@ -39,13 +39,13 @@ public class PlacerHolderHook extends PlaceholderExpansion {
 
         switch (params) {
             case "killer":
-                return plugin.getDragon().getKillerName();
+                return plugin.getDragonData().getKillerName();
     
             case "health":
-                return plugin.getDragon().getHealth().toString();
+                return plugin.getDragonData().getHealth().toString();
     
             case "name":
-                return plugin.getDragon().getName();
+                return plugin.getDragonData().getName();
 
             case "next":
                 return plugin.getDragonManager().getNext();

@@ -3,12 +3,13 @@ package com.ar.askgaming.betterdragon;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import com.ar.askgaming.betterdragon.Dragon.DragonData;
 import com.ar.askgaming.betterdragon.Abilities.CounterAttack;
 import com.ar.askgaming.betterdragon.Dragon.DragonBossBar;
+import com.ar.askgaming.betterdragon.Dragon.DragonData;
 import com.ar.askgaming.betterdragon.Dragon.DragonManager;
 import com.ar.askgaming.betterdragon.Dragon.DragonStatue;
 import com.ar.askgaming.betterdragon.Handlers.DataHandler;
+import com.ar.askgaming.betterdragon.Handlers.LangHandler;
 import com.ar.askgaming.betterdragon.Listeners.PlayerInteractListener;
 import com.ar.askgaming.betterdragon.Listeners.PlayerJoinListener;
 import com.ar.askgaming.betterdragon.Listeners.EntityListeners.CreatureSpawnListener;
@@ -21,11 +22,12 @@ import com.ar.askgaming.betterdragon.Utils.Leaderboard;
 import com.ar.askgaming.betterdragon.Utils.PlacerHolderHook;
 import com.ar.askgaming.betterdragon.Utils.RespawnTask;
 
-import net.md_5.bungee.api.ChatColor;
-
 public class BetterDragon extends JavaPlugin{
     
+    private static BetterDragon instance;
+
     private DataHandler dataHandler;
+    private LangHandler langHandler;
     private DragonManager dragonManager;
     private DragonData dragon;
     private DragonBossBar dragonBossBar;
@@ -35,9 +37,11 @@ public class BetterDragon extends JavaPlugin{
     
     public void onEnable() {
 
+        instance = this;
         saveDefaultConfig();
 
         dataHandler = new DataHandler(this);
+        langHandler = new LangHandler();
         dragon = new DragonData(this);
         dragonManager = new DragonManager(this);
         statue = new DragonStatue(this);
@@ -45,60 +49,56 @@ public class BetterDragon extends JavaPlugin{
         dragonBossBar = new DragonBossBar(this);
         leaderboard = new Leaderboard(this);
 
-        Bukkit.getPluginManager().registerEvents(new CreatureSpawnListener(this), this);
-        Bukkit.getPluginManager().registerEvents(new PlayerJoinListener(this), this);
-        Bukkit.getPluginManager().registerEvents(new EntityDeathListener(this), this);
-        Bukkit.getPluginManager().registerEvents(new EntityDamageListener(this), this);
-        Bukkit.getPluginManager().registerEvents(new PlayerInteractListener(this), this);
-        Bukkit.getPluginManager().registerEvents(new EntityTargetListener(this), this);
+        new PlayerChangeWorldListener();
+        new RegainHealthListener();
+        new PlayerInteractListener();
+        new EntityDeathListener();
+        new CreatureSpawnListener();
+        new PlayerJoinListener();
+        new EntityDamageListener();
+        new EntityTargetListener();
 
-        new PlayerChangeWorldListener(this);
-        new RegainHealthListener(this);
-          
-        Bukkit.getPluginCommand("dragon").setExecutor(new Commands(this));
+        new Commands();
+        new RespawnTask();
 
-        Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new RespawnTask(this), 0L, 1200L);
-
-        if(Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
+        if (Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
             new PlacerHolderHook(this).register();
         }
     }
 
     public void onDisable() {
         dragonBossBar.removeAllBossBars();
-        getStatue().remove();
+        getDragonStatue().remove();
         getLeaderboard().removeLeaderBoard();
     }
 
-    public String getLang(String s){
-        if (getConfig().get(s) != null) {
-            return ChatColor.translateAlternateColorCodes('&', getConfig().getString(s));
-        }
-        return "Undefined path " + s;
-    }
     public Leaderboard getLeaderboard() {
         return leaderboard;
+    }
+    public LangHandler getLangHandler() {
+        return langHandler;
     }
     public CounterAttack getDragonAbilities() {
         return dragonAbilities;
     }
-    public DragonStatue getStatue() {
+    public DragonStatue getDragonStatue() {
         return statue;
     }
     public DataHandler getDataHandler() {
         return dataHandler;
     }
-    public DragonData getDragon() {
+    public DragonData getDragonData() {
         return dragon;
     }
 
     public DragonManager getDragonManager() {
         return dragonManager;
     }
-    public void setDragon(DragonData dragon) {
-        this.dragon = dragon;
-    }
+
     public DragonBossBar getDragonBossBar() {
         return dragonBossBar;
+    }
+    public static BetterDragon getInstance() {
+        return instance;
     }
 }

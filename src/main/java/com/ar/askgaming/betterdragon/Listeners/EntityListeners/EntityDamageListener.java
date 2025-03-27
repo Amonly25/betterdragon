@@ -16,9 +16,10 @@ import com.ar.askgaming.betterdragon.BetterDragon;
 
 public class EntityDamageListener implements Listener{
 
-    private BetterDragon plugin;
-    public EntityDamageListener(BetterDragon main){
-        plugin = main;
+    private final BetterDragon plugin;
+    public EntityDamageListener(){
+        plugin = BetterDragon.getInstance();
+        plugin.getServer().getPluginManager().registerEvents(this, plugin);
     }
 
     @EventHandler

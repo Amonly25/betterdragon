@@ -9,9 +9,10 @@ import com.ar.askgaming.betterdragon.BetterDragon;
 
 public class PlayerJoinListener implements Listener{
 
-    private BetterDragon plugin;
-    public PlayerJoinListener(BetterDragon main){
-        plugin = main;
+    private final BetterDragon plugin;
+    public PlayerJoinListener(){
+        plugin = BetterDragon.getInstance();
+        plugin.getServer().getPluginManager().registerEvents(this, plugin);
     }
 
     @EventHandler()

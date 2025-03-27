@@ -1,0 +1,4 @@
+respawn: "&7The &5Ender Dragon &7has spawned."
+onkill: "&7The player &c%player% &7has kill the &5Ender Dragon."
+endcrystal: "&cYou cant use ender crystal on bedrock."
+next_dragon: "&7%hours% hours and %min% minutes"

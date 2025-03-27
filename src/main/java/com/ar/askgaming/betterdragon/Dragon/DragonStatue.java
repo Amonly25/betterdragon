@@ -63,7 +63,7 @@ public class DragonStatue {
         statue.setArms(true);
 		statue.setBasePlate(conf.getBoolean("statue.baseplate"));
 		statue.setGravity(conf.getBoolean("statue.gravity"));
-		String name = conf.getString("statue.name").replace("%player%", plugin.getDragon().getKillerName());
+		String name = conf.getString("statue.name").replace("%player%", plugin.getDragonData().getKillerName());
 		statue.setCustomName(ChatColor.translateAlternateColorCodes('&', name));
 		statue.setCustomNameVisible(conf.getBoolean("statue.name_visible"));
 		statue.setSmall(conf.getBoolean("statue.small"));
@@ -114,7 +114,7 @@ public class DragonStatue {
         SkullMeta meta = (SkullMeta) skull.getItemMeta();
 
 		String player = "Steve";
-		String killer = plugin.getDragon().getKillerName();
+		String killer = plugin.getDragonData().getKillerName();
 
 		if (killer != null && !killer.isBlank()){
 			player = killer;
@@ -133,7 +133,7 @@ public class DragonStatue {
 			return;
 		}
 
-		String name = plugin.getDragon().getKillerName();
+		String name = plugin.getDragonData().getKillerName();
 		statue.setCustomName(ChatColor.translateAlternateColorCodes('&', name));
 		ItemStack head = makeSkull();
 		statue.getEquipment().setHelmet(head);

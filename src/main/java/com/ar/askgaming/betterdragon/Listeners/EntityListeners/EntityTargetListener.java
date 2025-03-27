@@ -10,9 +10,10 @@ import com.ar.askgaming.betterdragon.BetterDragon;
 
 public class EntityTargetListener implements Listener{
 
-    private BetterDragon plugin;
-    public EntityTargetListener(BetterDragon plugin) {
-        this.plugin = plugin;
+    private final BetterDragon plugin;
+    public EntityTargetListener() {
+        plugin = BetterDragon.getInstance();
+		plugin.getServer().getPluginManager().registerEvents(this, plugin);
     }
 
     @EventHandler()
